@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hugo Sack</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --lime: #b5d44a;
+  --dark: #2a2a2a;
+  --coral: #f07070;
+  --yellow: #f5c842;
+  --white: #ffffff;
+  --border: 3px solid #2a2a2a;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--lime);
+  color: var(--dark);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--lime);
+  padding: 1.2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: var(--border);
+}
+
+.nav-logo {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--dark);
+  text-decoration: none;
+  line-height: 1.1;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0;
+  list-style: none;
+  background: var(--yellow);
+  border-radius: 0;
+  border: var(--border);
+}
+
+.nav-links li a {
+  display: block;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dark);
+  text-decoration: none;
+  border-right: var(--border);
+  transition: background 0.15s;
+}
+
+.nav-links li:last-child a { border-right: none; }
+.nav-links li a:hover { background: var(--coral); color: var(--white); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--lime);
+  text-align: center;
+  padding: 4rem 2rem 3rem;
+  border-bottom: var(--border);
+}
+
+.hero h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: var(--dark);
+  margin-bottom: 0.8rem;
+  line-height: 1.1;
+}
+
+.hero p {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 500;
+  color: var(--dark);
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.pill-btn {
+  display: inline-block;
+  background: var(--coral);
+  color: var(--white);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.7rem 2.2rem;
+  border-radius: 50px;
+  border: var(--border);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 3px 3px 0 var(--dark);
+}
+
+.pill-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--dark);
+}
+
+.pill-btn.yellow {
+  background: var(--yellow);
+  color: var(--dark);
+}
+
+.pill-btn.green {
+  background: #6aaa55;
+  color: var(--white);
+}
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  border: none;
+  border-top: var(--border);
+  margin: 0;
+}
+
+/* ── SECTIONS ── */
+.section {
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 5rem);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-full {
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 5rem);
+  border-bottom: var(--border);
+}
+
+.section-title {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--dark);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-body {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--dark);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ── PILL BUTTON ROW ── */
+.pill-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+/* ── COME WORK WITH US — matches the about photo section ── */
+.come-work {
+  background: var(--lime);
+  border-bottom: var(--border);
+  text-align: center;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 5rem);
+}
+
+.come-work h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  color: var(--dark);
+  margin-bottom: 1.5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stat-box {
+  background: var(--white);
+  border: var(--border);
+  border-radius: 16px;
+  padding: 1.2rem 1rem;
+  box-shadow: 4px 4px 0 var(--dark);
+}
+
+.stat-num {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--dark);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--dark);
+  opacity: 0.7;
+  margin-top: 0.3rem;
+}
+
+/* ── GALLERY STRIP — like the scrolling thumbnail row ── */
+.gallery-strip {
+  background: var(--lime);
+  border-top: var(--border);
+  border-bottom: var(--border);
+  padding: 0;
+  overflow: hidden;
+}
+
+.gallery-strip-inner {
+  display: flex;
+  gap: 3px;
+  animation: stripScroll 30s linear infinite;
+  width: max-content;
+}
+
+@keyframes stripScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.gallery-strip img {
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ── HALL OF FAME — yellow rounded box with dark border ── */
+.hof-outer {
+  background: var(--lime);
+  border-bottom: var(--border);
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 5rem);
+  text-align: center;
+}
+
+.hof-box {
+  background: var(--yellow);
+  border: var(--border);
+  border-radius: 40px;
+  padding: 2.5rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 5px 5px 0 var(--dark);
+}
+
+.hof-box h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--dark);
+  margin-bottom: 0.8rem;
+}
+
+.hof-divider {
+  height: 3px;
+  background: var(--dark);
+  margin: 0.8rem auto 1.5rem;
+  max-width: 600px;
+}
+
+.hof-names {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--dark);
+  line-height: 1.9;
+}
+
+/* ── EVENTS ── */
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 900px;
+  margin: 1.5rem auto 0;
+  border: var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.event-item {
+  background: var(--white);
+  padding: 1.3rem 2rem;
+  border-bottom: var(--border);
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.event-item:last-child { border-bottom: none; }
+.event-item:hover { background: #f5f5f0; }
+
+.event-date {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #6aaa55;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.event-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--dark);
+}
+
+.event-lineup {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.2rem;
+}
+
+.event-venue {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--coral);
+  text-align: right;
+  letter-spacing: 0.05em;
+}
+
+/* ── MUSIC ── */
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  max-width: 900px;
+  margin: 1.5rem auto 0;
+}
+
+.music-card {
+  background: var(--white);
+  border: var(--border);
+  border-radius: 16px;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 3px 3px 0 var(--dark);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.music-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--dark);
+}
+
+.music-num {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: rgba(42,42,42,0.2);
+  width: 2rem;
+  flex-shrink: 0;
+}
+
+.music-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--dark);
+}
+
+.music-label {
+  font-size: 0.75rem;
+  color: #777;
+  margin-top: 0.15rem;
+}
+
+/* ── TEAM ── */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 1.5rem auto 0;
+}
+
+.team-card {
+  background: var(--white);
+  border: var(--border);
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 4px 4px 0 var(--dark);
+}
+
+.team-emoji {
+  font-size: 3rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.team-role {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6aaa55;
+  margin-bottom: 0.4rem;
+}
+
+.team-name {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--dark);
+  margin-bottom: 0.7rem;
+}
+
+.team-bio {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ── CONTACT ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 800px;
+  margin: 1.5rem auto 0;
+}
+
+.contact-card {
+  background: var(--white);
+  border: var(--border);
+  border-radius: 16px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 3px 3px 0 var(--dark);
+}
+
+.contact-type {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6aaa55;
+  margin-bottom: 0.3rem;
+}
+
+.contact-val {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--dark);
+}
+
+.contact-val a {
+  color: var(--dark);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.contact-val a:hover { color: var(--coral); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .event-item { grid-template-columns: 1fr; }
+  .event-venue { text-align: left; }
+}
+
+/* ── ANIMATIONS ── */
+.pop-in {
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.pop-in.visible { opacity: 1; transform: translateY(0) scale(1); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">HUGO SACK<br>MUSIC</a>
+  <ul class="nav-links">
+    <li><a href="#about">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#hof">Hall of Fame</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" style="border-bottom: var(--border);">
+  <h1>Welcome to Hugo's website!</h1>
+  <p>Have a look around - Dont be shy :)</p>
+  <a class="pill-btn" href="#about">Read More</a>
+</div>
+
+<!-- ABOUT -->
+<hr class="section-divider">
+<div id="about" class="section-full">
+  <div class="section">
+    <div class="section-title pop-in">ABOUT</div>
+    <div class="section-body pop-in">
+      Hugo Sack is the creator and organiser of <strong>Greening Out</strong> — a local events project started in 2024. Beginning as a party, he's still kicking on. A graduate of <strong>UTS's Bachelor of Music and Sound Design</strong>, Hugo spent his student years booking and running gigs at the <strong>Marrickville Bowling Club</strong>. He's a musician, sound tech and freelance creative based in <strong>Dulwich Hill, Sydney</strong>. We welcome any and all local creatives to come work with us.
+    </div>
+  </div>
+</div>
+
+<!-- COME WORK WITH US -->
+<hr class="section-divider">
+<div class="come-work pop-in">
+  <h2>come work with us.</h2>
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-num">2+</div>
+      <div class="stat-label">Years Running</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">33+</div>
+      <div class="stat-label">Artists Booked</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Tracks on Spotify</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">271</div>
+      <div class="stat-label">Facebook Friends</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">0</div>
+      <div class="stat-label">LinkedIn Posts 💀</div>
+    </div>
+  </div>
+  <div class="pill-row">
+    <a class="pill-btn" href="#contact">CONTACT</a>
+    <a class="pill-btn" href="#team">THE TEAM</a>
+    <a class="pill-btn" href="#hof">HALL OF FAME</a>
+    <a class="pill-btn" href="#events">EVENTS</a>
+  </div>
+</div>
+
+<!-- GALLERY STRIP -->
+<div id="gallery" class="gallery-strip">
+  <div class="gallery-strip-inner">
+    <img src="https://static.wixstatic.com/media/1e546d_85413670bd86484999cd1c09bab1ed24~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_85413670bd86484999cd1c09bab1ed24~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_da32740370e243f29f7fd0901109e07b~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_da32740370e243f29f7fd0901109e07b~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_e90544af15be468bab39e3743b16e8ed~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_e90544af15be468bab39e3743b16e8ed~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_cf8e6d977bba432b81e56fcddc3b617b~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_cf8e6d977bba432b81e56fcddc3b617b~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_fe8f0dfca6294977a866ee2a8189c63e~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_fe8f0dfca6294977a866ee2a8189c63e~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_7e60403252d840d68e066113795345c4~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_7e60403252d840d68e066113795345c4~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_81aa9da9aaa7418b841f56c62edde331~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_81aa9da9aaa7418b841f56c62edde331~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_4c23bfca08064f5c9b7255cfd8c1a931~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_4c23bfca08064f5c9b7255cfd8c1a931~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_11000005f9554230a753e4e32f0e4a1f~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_11000005f9554230a753e4e32f0e4a1f~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_2edba9fbcdc44c22b93dc9b1e5f15685~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_2edba9fbcdc44c22b93dc9b1e5f15685~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_8ca34180702346dab15bdd1ed1a91bbd~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_8ca34180702346dab15bdd1ed1a91bbd~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_1fec6bad3b7a41a59637b20cfc2fac55~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_1fec6bad3b7a41a59637b20cfc2fac55~mv2.jpg" alt="">
+    <!-- duplicate for seamless loop -->
+    <img src="https://static.wixstatic.com/media/1e546d_85413670bd86484999cd1c09bab1ed24~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_85413670bd86484999cd1c09bab1ed24~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_da32740370e243f29f7fd0901109e07b~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_da32740370e243f29f7fd0901109e07b~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_e90544af15be468bab39e3743b16e8ed~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_e90544af15be468bab39e3743b16e8ed~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_cf8e6d977bba432b81e56fcddc3b617b~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_cf8e6d977bba432b81e56fcddc3b617b~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_fe8f0dfca6294977a866ee2a8189c63e~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_fe8f0dfca6294977a866ee2a8189c63e~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_7e60403252d840d68e066113795345c4~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_7e60403252d840d68e066113795345c4~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_81aa9da9aaa7418b841f56c62edde331~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_81aa9da9aaa7418b841f56c62edde331~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_4c23bfca08064f5c9b7255cfd8c1a931~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_4c23bfca08064f5c9b7255cfd8c1a931~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_11000005f9554230a753e4e32f0e4a1f~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_11000005f9554230a753e4e32f0e4a1f~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_2edba9fbcdc44c22b93dc9b1e5f15685~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_2edba9fbcdc44c22b93dc9b1e5f15685~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_8ca34180702346dab15bdd1ed1a91bbd~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_8ca34180702346dab15bdd1ed1a91bbd~mv2.jpg" alt="">
+    <img src="https://static.wixstatic.com/media/1e546d_1fec6bad3b7a41a59637b20cfc2fac55~mv2.jpg/v1/fit/w_300,h_300,q_90,enc_avif/1e546d_1fec6bad3b7a41a59637b20cfc2fac55~mv2.jpg" alt="">
+  </div>
+</div>
+
+<!-- HALL OF FAME -->
+<hr class="section-divider">
+<div id="hof" class="hof-outer pop-in">
+  <div class="hof-box">
+    <h2>Hall of Fame</h2>
+    <div class="hof-divider"></div>
+    <div class="hof-names">
+      Curtis Finch * Sunstalkersss * All Her Years * Oli Atkins * Amaani F.B * Kobee Nooks * 33.45 * Apocalypse Boyo * Blind Trust * Genie Loci * Bad Jeep Country * Rem * Less Unless * Liquid Squid * DMT Pancake * Meow Meow And the Smackouts * Colour Trove * Cutthroat Kelly * LARM * Maisie's Vacation * Grease Fire * Dink * Yasmina Sadiki * News Agency Gallery * Yzzi Schneider * Heroine Wendy * Carla * Jordan Kenny * Rhom Konnie * Witch Doctor * Bonnie * Miss Sunshine * moth !
+    </div>
+  </div>
+</div>
+
+<!-- EVENTS -->
+<hr class="section-divider">
+<div id="events" class="section-full">
+  <div class="section">
+    <div class="section-title pop-in">Events</div>
+    <p class="section-body pop-in" style="margin-bottom: 0;">All shows booked and run by Hugo through Greening Out</p>
+    <div class="events-list pop-in">
+      <div class="event-item">
+        <div class="event-date">Apr 2024</div>
+        <div>
+          <div class="event-name">Greening Out — First Ever Party 🎉</div>
+          <div class="event-lineup">The one that started it all</div>
+        </div>
+        <div class="event-venue">Inner West</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">Dec 2025</div>
+        <div>
+          <div class="event-name">Greening Out at Marrickville Tennis Club</div>
+          <div class="event-lineup">Cutthroat Kelly · Apocalypse Boyo · Heroine Wendy · Carla Hoffmann</div>
+        </div>
+        <div class="event-venue">Tennis Club</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">Jan 2026</div>
+        <div>
+          <div class="event-name">Greening Out at the Bowlo</div>
+          <div class="event-lineup">Jordan Kenny · Rhom Konnie · Witch Doctor · Less Unless · Bonnie</div>
+        </div>
+        <div class="event-venue">Marrickville Bowlo</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">Apr 2026</div>
+        <div>
+          <div class="event-name">Greening Out 2nd Anniversary 🎂</div>
+          <div class="event-lineup">Two years of good tunes — come celebrate</div>
+        </div>
+        <div class="event-venue">185 Bar Marrickville</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">May 2026</div>
+        <div>
+          <div class="event-name">Witch Doctor · Liquid Squid · Midcentury Stone Age</div>
+          <div class="event-lineup">Good tunes · Good beers · Good vibes · Doors 7pm · $15 presale / $20 door</div>
+        </div>
+        <div class="event-venue">Marrickville Bowlo</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<hr class="section-divider">
+<div class="section-full">
+  <div class="section">
+    <div class="section-title pop-in">Music</div>
+    <p class="section-body pop-in">Six tracks on Spotify and Apple Music. Search "Hugo Sack" to listen. Performed live at The Vanguard, Newtown — May 2023.</p>
+    <div class="music-grid pop-in">
+      <div class="music-card"><div class="music-num">01</div><div><div class="music-name">DON'T YOU</div><div class="music-label">450 Records · 2023</div></div></div>
+      <div class="music-card"><div class="music-num">02</div><div><div class="music-name">GUIDE MY WAY</div><div class="music-label">450 Records · 2023</div></div></div>
+      <div class="music-card"><div class="music-num">03</div><div><div class="music-name">SOMEONE TO LOVE ME</div><div class="music-label">450 Records · 2023</div></div></div>
+      <div class="music-card"><div class="music-num">04</div><div><div class="music-name">PSYCHONAUT</div><div class="music-label">450 Records · 2023</div></div></div>
+      <div class="music-card"><div class="music-num">05</div><div><div class="music-name">WASTE AWAY</div><div class="music-label">450 Records · 2023</div></div></div>
+      <div class="music-card"><div class="music-num">06</div><div><div class="music-name">IN DEBT</div><div class="music-label">450 Records · 2023</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<hr class="section-divider">
+<div id="team" class="section-full">
+  <div class="section">
+    <div class="section-title pop-in">Meet the Team</div>
+    <div class="team-grid pop-in">
+      <div class="team-card">
+        <span class="team-emoji">🎵</span>
+        <div class="team-role">Creator</div>
+        <div class="team-name">Hugo Sack</div>
+        <div class="team-bio">Creator and Organiser of Greening Out. Sound Tech, Musician, Creative. Contact for freelance work.</div>
+      </div>
+      <div class="team-card">
+        <span class="team-emoji">📷</span>
+        <div class="team-role">Lead Photographer</div>
+        <div class="team-name">Martina Reyes</div>
+        <div class="team-bio">Lead Photographer and Videographer. Contact for freelance work. @in.between.media</div>
+      </div>
+      <div class="team-card">
+        <span class="team-emoji">🎸</span>
+        <div class="team-role">The Community</div>
+        <div class="team-name">Everyone Else</div>
+        <div class="team-bio">33+ artists and counting. All local Inner West legends. The Hall of Fame keeps growing.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<hr class="section-divider">
+<div id="contact" class="section-full">
+  <div class="section">
+    <div class="section-title pop-in">CONTACT</div>
+    <div class="contact-grid pop-in">
+      <div class="contact-card">
+        <div class="contact-type">Email</div>
+        <div class="contact-val"><a href="mailto:contactgreeningout@gmail.com">contactgreeningout@gmail.com</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-type">Instagram</div>
+        <div class="contact-val"><a href="https://www.instagram.com/greeningout_fest/" target="_blank">@greeningout_fest</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-type">YouTube</div>
+        <div class="contact-val"><a href="https://www.youtube.com/@GreeningOutfest" target="_blank">@GreeningOutfest</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-type">Website</div>
+        <div class="contact-val"><a href="https://www.greeningout.com.au" target="_blank">greeningout.com.au</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-type">LinkedIn</div>
+        <div class="contact-val" style="color:#999;">0 posts · 0 followers · #OpenToWork 💀</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-type">Facebook</div>
+        <div class="contact-val"><a href="https://www.facebook.com/hugosack164" target="_blank">Hugo Sack (271 friends)</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  A portrait of Hugo Sack · assembled from publicly available information · made with love · Dulwich Hill, Sydney · 2026
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.pop-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
